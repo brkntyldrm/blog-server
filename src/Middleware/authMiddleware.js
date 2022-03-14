@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
         res.json({ status: 401, data: { error: "You are not authorized" } });
     }
 
-    return next;
+    next();
 }
 
 export default verifyToken;

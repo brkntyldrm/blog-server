@@ -5,7 +5,6 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import post from './src/Apis/postApi.js';
 import user from './src/Apis/registerLoginApi.js';
-import auth from './src/Middleware/authMiddleware.js';
 
 const app = express();
 
@@ -13,7 +12,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/v1/auth', user)
-app.use('api/v1/', auth);
 app.use('/api/v1/posts', post);
 
 
