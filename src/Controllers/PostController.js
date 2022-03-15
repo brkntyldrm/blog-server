@@ -27,3 +27,14 @@ export const updatePost = async (req, res) => {
 
     res.status(200).json(post);
 }
+
+export const deletePost = async (req, res) => {
+    try {
+        await Post.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({ message: "Post successfully deleted." });
+    }
+    catch {
+        res.status(422).json({ error: "Something went wrong." })
+    }
+}
