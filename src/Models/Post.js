@@ -3,18 +3,18 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-    user_id: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
     title: {
         type: String,
-        required: true,
+        required: [true, 'title column is required'],
     },
     content: {
         type: String,
-        required: true,
+        required: [true, "content column is required"],
         min: 20,
     }
 });

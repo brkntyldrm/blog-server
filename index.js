@@ -3,9 +3,9 @@ import cors from 'cors';
 import mongoose from "mongoose";
 import bodyParser from 'body-parser';
 import "dotenv/config";
-import post from './src/Apis/postApi.js';
-import auth from './src/Apis/registerLoginApi.js';
-import user from './src/Apis/userApi.js';
+import post from './src/Routes/PostRoute.js';
+import auth from './src/Routes/AuthRoute.js';
+import profile from './src/Routes/ProfileRoute.js';
 
 
 const app = express();
@@ -13,9 +13,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/api/v1/auth', auth)
+app.use('/api/v1/auth', auth);
+app.use('/api/v1/profile', profile);
 app.use('/api/v1/posts', post);
-app.use('/api/v1/users', user)
 
 
 

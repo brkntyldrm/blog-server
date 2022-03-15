@@ -1,13 +1,15 @@
 import Post from '../Models/Post.js'
 
+import { handleErrorMessage } from '../Helpers/helpers.js';
+
 export const getPosts = async (req, res) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('user');
 
-        res.status(200).json(posts)
+        res.status(200).json({ posts: posts })
     }
-    catch {
-        res.status(422).json({ error: "Something went wrong." })
+    catch (err) {
+        res.status(422).json({ error: err.message })
     }
 }
 
@@ -24,17 +26,15 @@ export const getPost = async (req, res) => {
 
 export const storePost = async (req, res) => {
     try {
-        console.log(req.user);
+        const user = req.user;
 
-        const datas = req.body;
+        req.body.user = user.id;
 
-        const post = new Post(datas);
+        const post = await Post.create(req.body);
 
-        const newPost = await post.save();
-
-        res.status(201).json(newPost);
-    } catch {
-        res.status(422).json({ error: "Something went wrong." })
+        res.status(201).json({ data: { post: post } });
+    } catch (err) {
+        res.status(422).json({ error: handleErrorMessage(err.message) })
     }
 }
 
@@ -44,8 +44,8 @@ export const updatePost = async (req, res) => {
 
         res.status(200).json(post);
     }
-    catch {
-        res.status(422).json({ error: "Something went wrong." })
+    catch (err) {
+        res.status(422).json({ error: handleErrorMessage(err.message) })
     }
 }
 

@@ -1,17 +1,19 @@
 import jwt from 'jsonwebtoken';
+import User from '../Models/User.js';
 import 'dotenv/config';
 
-const verifyToken = (req, res, next) => {
-    const token = req.headers['x-access-token'];
+const verifyToken = async (req, res, next) => {
+    const authorization = req.headers.authorization;
+    const token = authorization.split(' ')[1];
 
     if (!token) {
         res.json({ status: 401, data: { error: "You are not authorized" } });
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const user = await jwt.verify(token, process.env.JWT_SECRET)
 
-        req.user = decoded;
+        req.user = user;
     } catch (error) {
         res.json({ status: 401, data: { error: "You are not authorized" } });
     }
