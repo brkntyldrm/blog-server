@@ -1,11 +1,11 @@
 import express from "express";
 import cors from 'cors';
+import mongoose from "mongoose";
 import bodyParser from 'body-parser';
 import "dotenv/config";
-import mongoose from "mongoose";
 import post from './src/Apis/postApi.js';
 import auth from './src/Apis/registerLoginApi.js';
-import user from './src/Apis/UserApi.js';
+import user from './src/Apis/userApi.js';
 
 
 const app = express();

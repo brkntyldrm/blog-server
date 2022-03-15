@@ -13,7 +13,7 @@ export const getPosts = async (req, res) => {
 
 export const getPost = async (req, res) => {
     try {
-        const post = await Post.find(req.params.id);
+        const post = await Post.findById(req.params.id);
 
         res.status(200).json(post);
     }

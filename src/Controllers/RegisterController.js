@@ -30,32 +30,30 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     const { username, password } = req.body;
-
     const user = await User.findOne({ username: username });
 
     if (!user) {
         res.json({
             status: 422, data: { error: "Given credential is wrong" }
         });
-
-        if (await bcrtyp.compare(password, user.password)) {
-            const token = jwt.sign({
-                id: user._id,
-                username: username,
-            },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: '2h'
-                }
-            );
-
-            user.token = token;
-
-            res.json({ status: 200, data: { token: token } });
-        }
-
-        res.json({
-            status: 422, data: { error: "Given credential is wrong" }
-        });
     }
+        
+    if (await bcrtyp.compare(password, user.password)) {
+        const token = jwt.sign({
+            id: user._id,
+            username: username,
+        },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '2h'
+            }
+        );
+
+        user.token = token;
+        res.json({ status: 200, data: { token: token } });
+    }
+
+    res.json({
+        status: 422, data: { error: "Given credential is wrong" }
+    });
 }
