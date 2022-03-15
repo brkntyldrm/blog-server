@@ -37,7 +37,7 @@ export const login = async (req, res) => {
             status: 422, data: { error: "Given credential is wrong" }
         });
     }
-        
+
     if (await bcrtyp.compare(password, user.password)) {
         const token = jwt.sign({
             id: user._id,

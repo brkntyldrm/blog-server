@@ -24,6 +24,8 @@ export const getPost = async (req, res) => {
 
 export const storePost = async (req, res) => {
     try {
+        console.log(req.user);
+
         const datas = req.body;
 
         const post = new Post(datas);
